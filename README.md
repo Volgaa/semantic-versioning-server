@@ -1,6 +1,7 @@
 # Semantic Versioning Server
 
 Yet another semantic versioning server made with Django
+
 Semantic Versioning: https://semver.org/
 
 **Features**
