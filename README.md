@@ -33,8 +33,9 @@ Changes should be made in **versioning/settings.py** file.
 
 ## Starting the application
 
-    docker build -t django_web .
     docker-compose up -d
+    docker exec -it <django_web_container_id> /bin/bash
+    python3 manage.py migrate
 
 and that's it!
 
