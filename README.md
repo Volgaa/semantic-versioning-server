@@ -37,24 +37,26 @@ Changes should be made in **versioning/settings.py** file.
 
 and that's it!
 
-**docker-compose.yml**
+**docker-compose.yml**  
+
 Change the port 8000 to 80 for production. (and do the other things such as setting the DEBUG mode to False in **versioning/settings.py**:26)
 
-    version: '3'
+version: '2'
 
-    services:
-		db: image: postgres
-        ports:
-	      - "5432:5432"
-	    web:
-     build: .
-        command: python3 manage.py runserver 0.0.0.0:8000
-        volumes:
-	      - .:/code
-        ports:
-	      - "8000:8000"
-	    depends_on:
-	      - db
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
 
 ## Usage
 
@@ -76,19 +78,10 @@ increments the project's major version
 4.0.2.b001 -> 5.0.0.b000
 
 ## Using Django-Admin
-Get shell access to the container uses the django_web image
-
-    9baeb78a5e7d        django_web          "python3 manage.py r…"   3 hours ago         Up 2 hours          0.0.0.0:8000->8000/tcp   django_web_1
-
-    docker exec -it 9baeb78a5e7d /bin/bash
-
-and run the command below
-
-    python3 manage.py createsuperuser
-
-with the credentials you've set login the admin page from the link
 
     http://hostname:8000/admin
-from there you can create new projects and change the current versions
+from here you can create new projects and change the current versions
+Username: admin
+Password: admin
 
 
