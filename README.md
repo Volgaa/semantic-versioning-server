@@ -12,7 +12,7 @@ Semantic Versioning: https://semver.org/
 
 **TO-DO**
  - Authentication
- - Creating, deleting projects using API instead of django-admin
+ - Creating, deleting projects using API
 
 ## Database Settings
 
@@ -34,8 +34,6 @@ Changes should be made in **versioning/settings.py** file.
 ## Starting the application
 
     docker-compose up -d
-    docker exec -it <django_web_container_id> /bin/bash
-    python3 manage.py migrate
 
 and that's it!
 
