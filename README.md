@@ -1,3 +1,4 @@
+
 # Semantic Versioning Server
 
 Yet another semantic versioning server made with Django
@@ -37,26 +38,28 @@ Changes should be made in **versioning/settings.py** file.
 
 and that's it!
 
-**docker-compose.yml**  
+**docker-compose.yml**  > Change the port 8000 to 80 for production. (and do the other things such as setting the DEBUG mode to False in **versioning/settings.py**:26)
 
-Change the port 8000 to 80 for production. (and do the other things such as setting the DEBUG mode to False in **versioning/settings.py**:26)
-
-version: '2'
-
-services:
-  db:
-    image: postgres
-    ports:
-      - "5432:5432"
-  web:
-    build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
+    version: '2'
+    
+    services:
+      db:
+        image: postgres
+        ports: 
+          - "5432:5432"
+      web:
+        build: .
+        command: >
+            bash -c "sleep 10s
+            && python3 manage.py migrate
+            && python3 manage.py shell -c \"from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'admin')\"
+            && python3 manage.py runserver 0.0.0.0:8000"
+        volumes:
+          - .:/code
+        ports:
+          - "8000:8000"
+        depends_on:
+          - db
 
 ## Usage
 
@@ -80,8 +83,9 @@ increments the project's major version
 ## Using Django-Admin
 
     http://hostname:8000/admin
-from here you can create new projects and change the current versions
-Username: admin
-Password: admin
+from here you can create new projects and change the current versions  
+
+    Username: admin  
+    Password: admin
 
 
